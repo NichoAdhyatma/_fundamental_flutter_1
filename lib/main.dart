@@ -1,51 +1,41 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const InvisibleWidget());
-}
+void main() => runApp(MyApp());
 
-class InvisibleWidget extends StatelessWidget {
-  const InvisibleWidget({super.key});
+class MyApp extends StatelessWidget {
+  MyApp({super.key});
+
+  final List<Container> myList = [
+    Container(
+      width: 100,
+      height: 100,
+      color: Colors.blue,
+    ),
+    Container(
+      width: 100,
+      height: 100,
+      color: Colors.red,
+    )
+  ];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            "Column, Row , Stack",
-            style: TextStyle(
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          backgroundColor: Colors.blueAccent,
+          title: const Text("My App"),
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              width: 200,
-              height: 100,
-              color: Colors.greenAccent,
+        body: ListView.builder(
+          itemCount: 50,
+          itemBuilder: (context, index) => Card(
+            child: ListTile(
+              leading: const FlutterLogo(size: 72.0,),
+              title: Text("List - $index"),
+              trailing: const Icon(Icons.more_vert),
+              subtitle: const Text("List of view"),
+              isThreeLine: true,
             ),
-            Container(
-              width: 200,
-              height: 100,
-              color: Colors.redAccent,
-            ),
-            Container(
-              width: 200,
-              height: 100,
-              color: Colors.yellowAccent,
-            ),
-            Container(
-              width: 200,
-              height: 100,
-              color: Colors.purpleAccent,
-            ),
-          ],
+          )
         ),
       ),
     );
