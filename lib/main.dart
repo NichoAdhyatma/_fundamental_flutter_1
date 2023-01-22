@@ -1,42 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:faker/faker.dart';
 
-void main() => runApp(MyApp());
+void main() => {runApp(MyApp())};
 
+// ignore: must_be_immutable
 class MyApp extends StatelessWidget {
+  var faker = Faker();
   MyApp({super.key});
-
-  final List<Container> myList = [
-    Container(
-      width: 100,
-      height: 100,
-      color: Colors.blue,
-    ),
-    Container(
-      width: 100,
-      height: 100,
-      color: Colors.red,
-    )
-  ];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text("My App"),
+          title: const Text("Exact Widget"),
         ),
-        body: ListView.builder(
-          itemCount: 50,
-          itemBuilder: (context, index) => Card(
-            child: ListTile(
-              leading: const FlutterLogo(size: 72.0,),
-              title: Text("List - $index"),
-              trailing: const Icon(Icons.more_vert),
-              subtitle: const Text("List of view"),
-              isThreeLine: true,
-            ),
-          )
+        body: ListView.separated(
+          itemCount: 5,
+          separatorBuilder: (context, index) => const Divider(),
+          itemBuilder: (BuildContext context, int index) => ChatItem(
+            title: faker.person.name(),
+            text: faker.lorem.sentence(),
+          ),
         ),
+      ),
+    );
+  }
+}
+
+class ChatItem extends StatelessWidget {
+  final String title;
+  final String text;
+  final String imageUrl = "https://xsgames.co/randomusers/avatar.php?g=male";
+  const ChatItem({super.key, required this.title, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: CircleAvatar(
+        backgroundImage: NetworkImage(imageUrl),
+      ),
+      title: Text(title),
+      trailing: const Text("10 : 00 AM"),
+      subtitle: Text(
+        text,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }
