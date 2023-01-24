@@ -1,117 +1,84 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/exact_widget.dart';
+import 'package:faker/faker.dart';
 
-void main() {
-  runApp(MyApp());
+void main() => runApp(const MyApp());
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
 }
 
-class MyApp extends StatelessWidget {
-  MyApp({super.key});
-  final List<Map<String, dynamic>> mylist = [
-    {
-      "name": "Nicholaus Adhyatma",
-      "age": 19,
-      "fav_color": [
-        "red",
-        "blue",
-        "yellow",
-        "red",
-        "blue",
-        "yellow",
-      ],
-    },
-    {
-      "name": "Dwikarna",
-      "age": 29,
-      "fav_color": [
-        "green",
-        "purple",
-        "red",
-      ],
-    },
-    {
-      "name": "Eden",
-      "age": 27,
-      "fav_color": [
-        "green",
-        "purple",
-        "red",
-      ],
-    },
+class _MyAppState extends State<MyApp> {
+  var faker = Faker();
+  List<Widget> myTab = [
+    const Tab(
+      text: "Home",
+    ),
+    const Tab(
+      text: "Chat",
+    ),
+    const Tab(
+      text: "Profile",
+    ),
   ];
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("Mapping List"),
-        ),
-        body: ListView(
-          children: mylist.map(
-            (data) {
-              List favColor = data["fav_color"];
-              return Card(
-                margin: const EdgeInsets.all(10),
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          const CircleAvatar(),
-                          const SizedBox(
-                            width: 20,
-                            height: 20,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("Name : ${data["name"]}"),
-                              Text("Age : ${data["age"]}"),
-                              const SizedBox(
-                                height: 10,
-                                width: 10,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: favColor
-                              .map(
-                                (color) => Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 10,
-                                    vertical: 5,
-                                  ),
-                                  margin: const EdgeInsets.symmetric(
-                                    horizontal: 10,
-                                    vertical: 0,
-                                  ),
-                                  child: Text(
-                                    "$color",
-                                    style: const TextStyle(
-                                      color: Colors.blue,
-                                    ),
-                                  ),
-                                ),
-                              )
-                              .toList(),
-                        ),
-                      )
-                    ],
-                  ),
+      theme: ThemeData(
+        fontFamily: "Poppins",
+      ),
+      home: DefaultTabController(
+        initialIndex: 1,
+        length: myTab.length,
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            title: const Text(
+              "Ngoding Yuks",
+              style: TextStyle(color: Colors.purple),
+            ),
+            bottom: TabBar(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              unselectedLabelColor: Colors.purple,
+              indicator: const BoxDecoration(
+                color: Colors.purple,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
                 ),
-              );
-            },
-          ).toList(),
+              ),
+              labelColor: Colors.white,
+              tabs: myTab,
+            ),
+            centerTitle: true,
+            toolbarHeight: 90,
+          ),
+          body: TabBarView(
+            children: [
+              const Center(
+                child: Text("Home"),
+              ),
+              ListView.separated(
+                itemCount: 6,
+                separatorBuilder: (context, index) => const Divider(
+                  thickness: 1,
+                  color: Colors.black12,
+                ),
+                itemBuilder: ((context, index) => ChatItem(
+                      title: faker.person.name(),
+                      text: faker.lorem.sentence(),
+                      imageUrl: "https://api.multiavatar.com/$index.png",
+                    )),
+              ),
+              const Center(
+                child: Text("Profile"),
+              ),
+            ],
+          ),
         ),
       ),
     );

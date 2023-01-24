@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:faker/faker.dart';
+import 'package:intl/intl.dart';
 
 void main() => {runApp(MyApp())};
 
@@ -62,12 +63,12 @@ class ChatItem extends StatelessWidget {
       title: Text(title),
       trailing:  Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children:  const [
-          Text("10 : 00 AM"),
-          SizedBox(
+        children: [
+          Text(DateFormat.MMMEd().add_Hm().format(DateTime.now()).toString()),
+          const SizedBox(
             height: 5.0,
           ),
-          Icon(Icons.circle, color: Colors.purple,),
+          const Icon(Icons.circle, color: Colors.purple,),
         ],
       ),
       subtitle: Text(
