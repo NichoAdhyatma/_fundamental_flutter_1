@@ -48,11 +48,13 @@ class ChatItem extends StatelessWidget {
   final String title;
   final String text;
   final String imageUrl;
-  const ChatItem(
-      {super.key,
-      required this.title,
-      required this.text,
-      required this.imageUrl});
+
+  const ChatItem({
+    super.key,
+    required this.title,
+    required this.text,
+    required this.imageUrl,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -61,14 +63,16 @@ class ChatItem extends StatelessWidget {
         backgroundImage: NetworkImage(imageUrl),
       ),
       title: Text(title),
-      trailing:  Column(
+      trailing: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(DateFormat.MMMEd().add_Hm().format(DateTime.now()).toString()),
+          Text(DateFormat.Hm().format(DateTime.now()).toString()),
           const SizedBox(
             height: 5.0,
           ),
-          const Icon(Icons.circle, color: Colors.purple,),
+          const Icon(
+            Icons.circle,
+          ),
         ],
       ),
       subtitle: Text(

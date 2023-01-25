@@ -1,82 +1,58 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: Home(),
+    );
+  }
 }
 
-class _MyAppState extends State<MyApp> {
+class Home extends StatelessWidget {
+  const Home({
+    Key? key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        fontFamily: 'Poppins',
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Dialog"),
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("Quiz App"),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              const TextField(
-                autofocus: true,
-                enableInteractiveSelection: true,
-                style: TextStyle(
-                  letterSpacing: 1.2,
-                ),
-                decoration: InputDecoration(
-                  icon: Icon(Icons.person),
-                  label: Text("Name"),
-                  hintText: "Name",
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              const TextField(
-                autofocus: true,
-                enableInteractiveSelection: true,
-                obscureText: true,
-                style: TextStyle(
-                  letterSpacing: 1.2,
-                ),
-                decoration: InputDecoration(
-                  icon: Icon(Icons.key),
-                  label: Text("password"),
-                  hintText: "Password",
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(
-                      Icons.login,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "Login",
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text("Confirm"),
+                content: const Text("Are you sure want to delete?"),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Yes"),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("No"),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+        child: const Icon(Icons.delete),
       ),
     );
   }
