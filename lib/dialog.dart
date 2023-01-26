@@ -50,7 +50,8 @@ class Home extends StatelessWidget {
                 ],
               );
             },
-          ).then((value) => print(value));
+          );
+          //.then((value) => print(value));
         },
         child: const Icon(Icons.delete),
       ),
