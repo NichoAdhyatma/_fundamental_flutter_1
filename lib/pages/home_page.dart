@@ -23,13 +23,7 @@ class HomePage extends StatelessWidget {
             children: [
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const Page1();
-                      },
-                    ),
-                  );
+                  Navigator.of(context).pushNamed(Page1.nameRoute);
                 },
                 child: const Icon(
                   Icons.arrow_right,
