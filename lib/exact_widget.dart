@@ -61,6 +61,7 @@ class ChatItem extends StatelessWidget {
     return ListTile(
       leading: CircleAvatar(
         backgroundImage: NetworkImage(imageUrl),
+
       ),
       title: Text(title),
       trailing: Column(

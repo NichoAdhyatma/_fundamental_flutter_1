@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
             height: 200,
             color: Colors.amber,
             child: Image.asset("images/971.jpg", fit: BoxFit.cover,),
+            
             // Image.file(file)
           ),
         ),
